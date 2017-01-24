@@ -7,43 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        function validateForm1(){
-            var results = [];
-            var mySelect = document.getElementById("myForm1").getElementsByTagName("select");
-            $('#myForm1').find('select').each(function (index, val) {
-                results[index] = $(val).val();
-            });
-            if(hasZero(results)){
-                alert("You Must choose all the 6 numbers");
-                return false;
-            }
-            if(hasDuplicates(results) || hasZero(results)){
-                alert("Numbers must be unique");
-                return false;
-            }
-        }
-        function validateForm2() {
-            var results = [];
-            $('#myForm2').find('select').each(function (index, val) {
-                results[index] = $(val).val();
-            });
-            if(hasZero(results)){
-                alert("You Must choose all the 6 numbers");
-                return false;
-            }
-            if(hasDuplicates(results) || hasZero(results)){
-                alert("Numbers must be unique");
-                return false;
-            }
-        }
-        function hasZero(array) {
-            return array.indexOf("0") != -1;
-        }
-        function hasDuplicates(array) {
-            return (new Set(array)).size !== array.length;
-        }
-    </script>
     <style>
         html,body{
             height: 100%
@@ -98,7 +61,7 @@
         <div class="col-sm-4 col-sm-offset-1 text-left">
             <h2>User Info Form</h2>
             <div>
-                <form action="/createUser" id="myForm" method="post" onsubmit="return validateForm()">
+                <form action="/createUser" id="myForm" method="post">
                     <div class="form-group">
                         <label for="txtFirstName">First Name:</label>
                         <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" required>
@@ -122,6 +85,15 @@
                         <button type="submit" class="btn btn-info">Submit</button>
                     </form>
             </div>
+            <%
+                String result = (String) request.getSession().getAttribute("result");
+                if(result != null){%>
+                <div class="alert alert-info">
+                    <strong><%=result%></strong>
+                </div>
+            <%
+                }
+            %>
         </div>
     </div>
 </div>

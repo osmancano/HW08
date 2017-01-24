@@ -27,7 +27,8 @@ public class UserServlet extends HttpServlet {
         String county = request.getParameter("txtCounty");
         User user = new User(first_name, last_name, age, city,county);
         user.writeUserToDisk(filePath);
-        String nextJSP = "/index.jsp";
+        request.getSession().setAttribute("result","User info added successfuly.");
+        String nextJSP = "/home.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request,response);
     }
